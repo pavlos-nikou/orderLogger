@@ -14,7 +14,7 @@ const columns = [
         field: "completed",
         headerName: "completed",
         width: 130,
-        renderCell: (params) => <Checkbox checked={params.value} />,
+        renderCell: (params) => <Checkbox checked={params.value}/>,
     },
     {
         field: "delete",
@@ -23,7 +23,7 @@ const columns = [
         renderCell: (params) => (
             <IconButton
                 variant="contained"
-                style={{color: "red"}}
+                style={{ color: "red" }}
                 onClick={() => handleDelete(params.row.id)}
             >
                 <DeleteIcon />
@@ -45,6 +45,7 @@ export default function DataTable({ data }) {
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10, 15]}
                 sx={{ border: 0 }}
+                getRowId = {(row) => row._id}
             />
         </Paper>
     );

@@ -42,24 +42,24 @@ app.get("/getOrders", async (req, res) => {
     res.send(orders);
 });
 
-app.post("/newOrder", async (req, res) => {
-    // const newOrder = new Order({
-    //     customerName: "test",
-    //     customerPhone: "97751330",
-    //     soft1Id: "STOR50TF00001",
-    //     items: [
-    //         { code: "lat.01666", quantity: 3, arrived: false },
-    //         { code: "lat.01450", quantity: 1, arrived: false },
-    //     ],
-    //     called: true,
-    //     completed: false,
-    //     date: "14/8/24",
-    //     salesman: "2421",
-    //     comment: "ton epkiasa tha perasi avrio",
-    // });
-    // await newOrder.save();
-    // res.send({ status: "Done", submitted: newOrder });\
-    res.send(req.body);
+app.get("/newOrder", async (req, res) => {
+    const newOrder = new Order({
+        customerName: "test",
+        customerPhone: "97751330",
+        soft1Id: "STOR50TF00001",
+        items: [
+            { code: "lat.01666", quantity: 3, arrived: false },
+            { code: "lat.01450", quantity: 1, arrived: false },
+        ],
+        called: true,
+        completed: false,
+        date: new Date().toLocaleDateString(),
+        salesman: "2421",
+        comment: "ton epkiasa tha perasi avrio",
+    });
+    await newOrder.save();
+    res.send({ status: "Done", submitted: newOrder });
+    // res.send(req.body);
 });
 
 app.listen(port, () => {

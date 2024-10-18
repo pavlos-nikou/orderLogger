@@ -14,25 +14,27 @@ async function getOrders() {
     return response.data;
 }
 
+const handleAsyncFunction = (func)=>{
+ func();
+}
+
 export default function OrderLogger() {
     const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const orderData = await getOrders();
-                console.log(orderData);
-                setOrders(orderData);
-            } catch (err) {
-                console.log(err.message);
-            }
-        };
-        getData();
-    }, []);
+
+    const getData = async () => {
+        try {
+            const orderData = await getOrders();
+            console.log(orderData);
+            setOrders(orderData);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+    useEffect(() => handleAsyncFunction(getData), []);
 
     return (
         <Paper className="OrderLogger" elevation={5}>
-            {/* <OrderTable data={orders} /> */}
-            {orders}
+            <OrderTable data={orders} />
         </Paper>
     );
 }
