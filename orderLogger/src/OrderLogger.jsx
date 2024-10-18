@@ -10,8 +10,8 @@ import axios from "axios";
 async function getOrders() {
     const response = await axios.get("http://127.0.0.1:3000/getOrders");
     console.log("from getOrders");
-    console.log(response.data);
-    return response;
+    // console.log(response.data);
+    return response.data;
 }
 
 export default function OrderLogger() {
@@ -19,8 +19,9 @@ export default function OrderLogger() {
     useEffect(() => {
         const getData = async () => {
             try {
-                orderData = await getOrders();
-                setOrders(ordersData);
+                const orderData = await getOrders();
+                console.log(orderData);
+                setOrders(orderData);
             } catch (err) {
                 console.log(err.message);
             }
