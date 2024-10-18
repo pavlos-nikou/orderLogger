@@ -4,8 +4,9 @@ const Order = require("./models/Order");
 const app = express();
 const port = 3000;
 
-const mongodbUrl =
-    "mongodb+srv://pavlosnpn:stephanislim50@cluster0.kyuiw.mongodb.net/OrderLoggerDB";
+require("dotenv").config();
+
+const mongodbUrl = process.env.DB_URL;
 
 mongoose
     .connect(mongodbUrl, {
@@ -18,7 +19,7 @@ mongoose
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("the server seems to work fine...i think???");
 });
 
 app.get("/getOrders", async (req, res) => {
