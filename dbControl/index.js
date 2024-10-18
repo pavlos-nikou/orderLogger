@@ -2,21 +2,36 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Order = require("./models/Order");
 const app = express();
+const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const port = 3000;
 
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 100, // limit each IP to 100 requests per windowMs
+});
+
 require("dotenv").config();
+console.log(process.env.DB_URL);
 
-const mongodbUrl = process.env.DB_URL;
-
+app.use(limiter);
+app.use(
+    cors({
+        origin: "*", // This allows any origin, but it's recommended to limit it to trusted domains
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
+app.use(express.json());
 mongoose
-    .connect(mongodbUrl, {
+    .connect(process.env.DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log("Error connecting to MongoDB:", err));
 
-app.use(express.json());
+
 
 app.get("/", (req, res) => {
     res.send("the server seems to work fine...i think???");

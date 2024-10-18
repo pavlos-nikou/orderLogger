@@ -10,8 +10,7 @@ import axios from "axios";
 async function getOrders() {
     const response = await axios.get("http://127.0.0.1:3000/getOrders");
     console.log("from getOrders");
-
-    // console.log(response.data);
+    console.log(response.data);
     return response;
 }
 
@@ -21,7 +20,7 @@ export default function OrderLogger() {
         const getData = async () => {
             try {
                 orderData = await getOrders();
-                // setOrders(ordersData);
+                setOrders(ordersData);
             } catch (err) {
                 console.log(err.message);
             }
@@ -32,6 +31,7 @@ export default function OrderLogger() {
     return (
         <Paper className="OrderLogger" elevation={5}>
             {/* <OrderTable data={orders} /> */}
+            {orders}
         </Paper>
     );
 }
