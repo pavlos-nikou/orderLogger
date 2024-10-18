@@ -1,0 +1,7 @@
+.OrderLogger {
+    position: relative;
+    margin: 0 auto;
+    background-color: red;
+    width: 80%;
+    max-width: 1000px;
+}
